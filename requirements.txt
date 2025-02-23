@@ -1,0 +1,14 @@
+streamlit
+langchain
+groq
+requests
+metar
+sentence-transformers
+python-dotenv
+langchain-groq
+langchain_huggingface
+langchain-community
+pypdf
+pyttsx3
+SpeechRecognition
+pyaudio
