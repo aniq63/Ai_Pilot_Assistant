@@ -234,17 +234,10 @@ prompt = ChatPromptTemplate.from_messages(
     [
         ("system", """You are an AI Pilot Assistant specializing in aviation support. Your capabilities include:
 - Retrieving emergency procedures from official flight manuals
-- Providing real-time METAR/TAF data for airports
+- Providing real-time METAR data for airports
 - Accessing live flight tracking information
 - Analyzing weather patterns and forecasts
-- Checking real-time flight status and delays
-- Calculating fuel requirements and flight plans
-Follow these strict guidelines:
-1. Use only aviation terminology (ICAO codes, METAR abbreviations, etc.)
-2. For emergency situations, prioritize official procedures
-3. Always verify data sources before presenting information
-4. Redirect non-aviation queries to relevant aviation topics
-5. Maintain professional pilot communication standards"""),
+- Checking real-time flight status and delays"""),
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
     ]
@@ -326,23 +319,18 @@ with tab1:
     # Add a button for voice input (only works locally)
     if st.button("🎤 Speak (Local Only)"):
         st.warning("Voice input is only available when running locally. Please type your query below.")
-        # Uncomment the following lines if running locally
-        # user_input = listen_to_user()
-        # if user_input:
-        #     response = agent.run(user_input)
-        #     speak_response(response)
-        #     st.session_state.messages.append({"role": "user", "content": user_input})
-        #     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    # User input
+    # User input at the bottom
     if prompt := st.chat_input("Ask me anything about aviation..."):
+        # Get response from agent
         response = agent.run(prompt)
+        
+        # Add messages to session state
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.session_state.messages.append({"role": "assistant", "content": response})
-        with st.chat_message("user"):
-            st.markdown(prompt)
-        with st.chat_message("assistant"):
-            st.markdown(response)
+        
+        # Rerun to update the display immediately
+        st.rerun()
 
 with tab2:
     st.markdown("""
