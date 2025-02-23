@@ -72,7 +72,7 @@ Aircraft Performance Analytics
 
 Real time best Route Provider
 
-Real time Plane Checking 
+Real time NOTAM data
 
 ## ⚙️ Installation
 
