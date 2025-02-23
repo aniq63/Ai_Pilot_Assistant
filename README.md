@@ -6,6 +6,7 @@ A next-generation aviation assistant powered by Groq's lightning-fast LLM and Ai
 
 ## 🌐 Live Demo  
 Access the hosted version: https://huggingface.co/spaces/Aniq-63/AI_Pilot_Assistant
+
 *(Note: Voice features disabled in cloud deployment)*
 
 ## 🚀 Features
