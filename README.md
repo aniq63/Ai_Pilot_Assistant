@@ -5,7 +5,7 @@
 A next-generation aviation assistant powered by Groq's lightning-fast LLM and Ai Agents designed to support pilots with real-time operational data and emergency procedures.
 
 ## 🌐 Live Demo  
-Access the hosted version: [https://pilot-assistant.streamlit.app/](https://pilot-assistant.streamlit.app/)  
+Access the hosted version: https://huggingface.co/spaces/Aniq-63/AI_Pilot_Assistant
 *(Note: Voice features disabled in cloud deployment)*
 
 ## 🚀 Features
