@@ -81,7 +81,7 @@ llm = ChatGroq(
 # Load emergency procedures from PDF
 loader = PyPDFLoader("Flight Emergency Procedure.pdf")
 docs = loader.load()
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
 splits = text_splitter.split_documents(docs)
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 vectorstore = InMemoryVectorStore.from_documents(splits, embeddings)
@@ -92,7 +92,7 @@ def emergency_procedures_tool(query: str) -> str:
     """
     Retrieves emergency procedures for aviation scenarios.
     """
-    docs = vectorstore.similarity_search(query, k=3)
+    docs = vectorstore.similarity_search(query, k=2)
     return "\n".join([doc.page_content for doc in docs])
 
 # METAR Tool with Enhanced Error Handling
@@ -104,7 +104,7 @@ def metar_tool(icao_code: str) -> str:
     try:
         url = f"https://api.checkwx.com/metar/{icao_code}"
         headers = {"X-API-Key": checkwx_api}
-        response = requests.get(url, headers=headers, timeout=5)
+        response = requests.get(url, headers=headers, timeout=3)
         response.raise_for_status()
         data = response.json()
         return data["data"][0] if data.get("results") > 0 else "No METAR data found."
@@ -249,9 +249,9 @@ agent = initialize_agent(
     llm,
     agent="conversational-react-description",
     memory=st.session_state.memory,
-    verbose=True,
+    verbose=False,
     prompt=prompt,
-    max_iterations=3,
+    max_iterations=2,
     early_stopping_method="generate",
     handle_parsing_errors=True,
     agent_kwargs={
@@ -262,33 +262,34 @@ agent = initialize_agent(
 )
 
 # Initialize the recognizer and TTS engine (for local use only)
-recognizer = sr.Recognizer()
-tts_engine = pyttsx3.init()
+# recognizer = sr.Recognizer()
+# tts_engine = pyttsx3.init()
 
-def listen_to_user():
-    """
-    Listens to the user's voice input and converts it to text.
-    """
-    with sr.Microphone() as source:
-        st.write("Listening...")
-        audio = recognizer.listen(source)
-        try:
-            text = recognizer.recognize_google(audio)
-            st.write(f"You said: {text}")
-            return text
-        except sr.UnknownValueError:
-            st.write("Sorry, I could not understand the audio.")
-            return None
-        except sr.RequestError:
-            st.write("Sorry, the speech service is down.")
-            return None
+# def listen_to_user():
+#     """
+#     Listens to the user's voice input and converts it to text.
+#     """
+#     with sr.Microphone() as source:
+#         st.write("Listening...")
+#         audio = recognizer.listen(source)
+#         try:
+#             text = recognizer.recognize_google(audio)
+#             st.write(f"You said: {text}")
+#             return text
+#         except sr.UnknownValueError:
+#             st.write("Sorry, I could not understand the audio.")
+#             return None
+#         except sr.RequestError:
+#             st.write("Sorry, the speech service is down.")
+#             return None
 
-def speak_response(response: str):
-    """
-    Converts the text response to speech.
-    """
-    tts_engine.say(response)
-    tts_engine.runAndWait()
+# def speak_response(response: str):
+#     """
+#     Converts the text response to speech.
+#     """
+#     tts_engine.say(response)
+#     tts_engine.runAndWait()
+
 
 # Streamlit App
 st.title("✈️ AI Pilot Assistant")
