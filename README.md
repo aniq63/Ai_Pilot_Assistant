@@ -14,7 +14,7 @@ Live Video Demo : https://youtu.be/QE9iGox6elE
 ## Screenshots
 
 ![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/0e9bcf6abad5533554f4bef24661441dc9cd77de/Capture1.PNG)
-![image alt]()
+![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/4d3fb467f24215f16ac6841b008af06c3b5fb49a/Capture2.PNG)
 
 ## 🚀 Features
 
