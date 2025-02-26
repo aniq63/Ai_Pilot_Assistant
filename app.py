@@ -81,7 +81,7 @@ llm = ChatGroq(
 # Load emergency procedures from PDF
 loader = PyPDFLoader("Flight Emergency Procedure.pdf")
 docs = loader.load()
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
 splits = text_splitter.split_documents(docs)
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 vectorstore = InMemoryVectorStore.from_documents(splits, embeddings)
@@ -92,7 +92,7 @@ def emergency_procedures_tool(query: str) -> str:
     """
     Retrieves emergency procedures for aviation scenarios.
     """
-    docs = vectorstore.similarity_search(query, k=2)
+    docs = vectorstore.similarity_search(query, k=3)
     return "\n".join([doc.page_content for doc in docs])
 
 # METAR Tool with Enhanced Error Handling
