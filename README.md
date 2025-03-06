@@ -11,11 +11,6 @@ Live Video Demo : https://youtu.be/QE9iGox6elE
 
 *(Note: Voice features disabled in cloud deployment)*
 
-## Screenshots
-
-![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/0e9bcf6abad5533554f4bef24661441dc9cd77de/Capture1.PNG)
-![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/4d3fb467f24215f16ac6841b008af06c3b5fb49a/Capture2.PNG)
-
 ## 🚀 Features
 
 - **Emergency Procedure Database**  
@@ -30,6 +25,8 @@ Live Video Demo : https://youtu.be/QE9iGox6elE
   Strict terminology adherence • Context-aware responses
 
 ## Workflow Description
+
+![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/18bf5b5762a96b7ecef7381c38161079547d94b3/Workflow_diagram.PNG)
 
 **User Interaction:**
 
@@ -80,6 +77,12 @@ Aircraft Performance Analytics
 Real time best Route Provider
 
 Real time NOTAM data
+
+## Screenshots
+
+![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/0e9bcf6abad5533554f4bef24661441dc9cd77de/Capture1.PNG)
+![image alt](https://github.com/aniq63/Ai_Pilot_Assistant/blob/4d3fb467f24215f16ac6841b008af06c3b5fb49a/Capture2.PNG)
+
 
 ## ⚙️ Installation
 
