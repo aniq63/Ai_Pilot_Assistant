@@ -229,19 +229,27 @@ tools = [
 if "memory" not in st.session_state:
     st.session_state.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-# Define a more conversational prompt
 prompt = ChatPromptTemplate.from_messages(
     [
         ("system", """You are an AI Pilot Assistant specializing in aviation support. Your capabilities include:
-- Retrieving emergency procedures from official flight manuals
-- Providing real-time METAR data for airports
-- Accessing live flight tracking information
-- Analyzing weather patterns and forecasts
-- Checking real-time flight status and delays"""),
+- Remembering previous queries about airports, flights, and procedures.
+- Retrieving emergency protocols from official flight manuals.
+- Providing real-time METAR data for airport weather conditions.
+- Accessing live flight tracking and status updates.
+- Analyzing weather patterns and forecasts for flight planning.
+- Checking real-time flight status, delays, and cancellations.
+Safety Protocols: 
+- Always verify data sources.  
+- Prioritize official procedures.  
+- Highlight emergency keywords.  
+- Maintain strict aviation terminology.  
+You prioritize accuracy, safety, and up-to-date information to assist pilots and aviation professionals effectively.
+"""),
         MessagesPlaceholder(variable_name="chat_history"),
         ("human", "{input}"),
     ]
 )
+
 
 # Modify the agent initialization
 agent = initialize_agent(
@@ -296,18 +304,9 @@ st.title("✈️ AI Pilot Assistant")
 st.markdown("Welcome to the AI Pilot Assistant!")
 
 # Create tabs for different sections
-tab1, tab2 = st.tabs(["Chat", "Example Queries"])
+tab1, tab2 = st.tabs(["Pilot deck", "Quick Refrence"])
 
 with tab1:
-    st.markdown("""
-    ### Features in this Assistant:
-    - Real-time METAR data of any airport (ICAO code)
-    - Emergency Guidance
-    - Real-time Flight data & Status
-    - Real-time Weather data of any location
-    - Voice Integration (Local Only)
-    """)
-
     # Initialize chat history
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -334,6 +333,25 @@ with tab1:
         st.rerun()
 
 with tab2:
+
+    st.markdown("""
+    Built an aviation-focused AI assistant with agentic AI capabilities, integrating real-time METAR feeds, flight tracking (OpenSky), and weather data.
+    Features include:
+    Conversational AI: Groq-LLM-powered agent with aviation-specific prompt engineering.
+    Emergency Procedures Engine: Semantic search using Hugging Face embeddings & LangChain.
+    Multi-modal Interaction: Voice recognition (SpeechRecognition) & TTS (pyttsx3).
+    Avionics-grade UI: Streamlit dashboard with real-time data visualization.
+    """)
+    
+    st.markdown("""
+    ### Features in this Assistant:
+    - Real-time METAR data of any airport (ICAO code)
+    - Emergency Guidance
+    - Real-time Flight data & Status
+    - Real-time Weather data of any location
+    - Voice Integration (Local Only)
+    """)
+
     st.markdown("""
     ### Example Queries
     Here are some example queries you can try:
