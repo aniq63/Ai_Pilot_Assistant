@@ -74,7 +74,7 @@ aviation_stack_key = os.getenv("AVIATION_STACK_API_KEY")
 # Initialize Groq LLM
 llm = ChatGroq(
     temperature=0.1,
-    model_name="mixtral-8x7b-32768",
+    model_name="llama-3.1-8b-instant",
     api_key=groq_api_key,
 )
 
