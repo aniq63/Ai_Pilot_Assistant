@@ -2,7 +2,7 @@
 
 **An Intelligent Aviation Support System with Real-Time Data Integration**
 
-A next-generation aviation assistant powered by Groq's lightning-fast LLM and Ai Agents designed to support pilots with real-time operational data and emergency procedures.
+A next-generation aviation assistant powered by Groq's lightning-fast LLM "llama-3.1-8b-instant" and Ai Agents designed to support pilots with real-time operational data and emergency procedures.
 
 ## 🌐 Live Demo  
 Access the hosted version: https://huggingface.co/spaces/Aniq-63/AI_Pilot_Assistant
