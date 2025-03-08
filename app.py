@@ -95,19 +95,43 @@ def emergency_procedures_tool(query: str) -> str:
     docs = vectorstore.similarity_search(query, k=3)
     return "\n".join([doc.page_content for doc in docs])
 
-# METAR Tool with Enhanced Error Handling
 @tool
 def metar_tool(icao_code: str) -> str:
     """
-    Fetches METAR data for a given airport.
+    Fetches METAR data for a given airport using official ICAO code.
     """
     try:
-        url = f"https://api.checkwx.com/metar/{icao_code}"
+        if not icao_code.isalpha() or len(icao_code) != 4:
+            return "❌ Invalid ICAO code format. Must be 4 letters (e.g., KJFK)."
+            
+        icao_code = icao_code.upper()
+        url = f"https://api.checkwx.com/metar/{icao_code}/decoded"
         headers = {"X-API-Key": checkwx_api}
-        response = requests.get(url, headers=headers, timeout=3)
+        
+        response = requests.get(url, headers=headers, timeout=5)
         response.raise_for_status()
+        
         data = response.json()
-        return data["data"][0] if data.get("results") > 0 else "No METAR data found."
+        
+        if data.get('results', 0) == 0:
+            return f"⚠️ No METAR available for {icao_code}"
+            
+        metar = data['data'][0]
+        return f"""
+🌤️ METAR for {icao_code} ({metar['station']['name']}):
+• Observation Time: {metar['observed']}
+• Wind: {metar['wind']['degrees']}° at {metar['wind']['speed_kts']} kts
+• Visibility: {metar['visibility']['meters']} meters
+• Clouds: {', '.join([f"{c['code']} at {c['base_feet_agl']}ft" for c in metar['clouds']])}
+• Temperature: {metar['temperature']['celsius']}°C
+• Dew Point: {metar['dewpoint']['celsius']}°C
+• Altimeter: {metar['barometer']['hpa']} hPa
+        """
+        
+    except requests.exceptions.HTTPError as e:
+        if response.status_code == 403:
+            return "🔒 API Authorization Error: Check CHECKWX_API_KEY"
+        return f"⚠️ HTTP Error: {str(e)}"
     except Exception as e:
         return f"⚠️ Error retrieving METAR: {str(e)}"
 
